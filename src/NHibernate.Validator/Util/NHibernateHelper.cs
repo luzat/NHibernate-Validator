@@ -68,15 +68,8 @@ namespace NHibernate.Validator.Util
 
 		public static bool IsProxyFactoryConfigurated()
 		{
-			try
-			{
-				var f = NHibernate.Cfg.Environment.BytecodeProvider.ProxyFactoryFactory;
-				return true;
-			}
-			catch (UnableToLoadProxyFactoryFactoryException)
-			{
-				return false;
-			}
+			var f = NHibernate.Cfg.Environment.BytecodeProvider.ProxyFactoryFactory;
+			return f != null;
 		}
 	}
 }
