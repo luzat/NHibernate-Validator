@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
 using System.Globalization;
+using NHibernate.Mapping;
 using NHibernate.Validator.Engine;
+
 
 namespace NHibernate.Validator.Constraints
 {
@@ -29,7 +32,7 @@ namespace NHibernate.Validator.Constraints
 	/// </summary>
 	[Serializable]
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-	public class DigitsAttribute : EmbeddedRuleArgsAttribute, IRuleArgs, IValidator
+	public class DigitsAttribute : EmbeddedRuleArgsAttribute, IPropertyConstraint, IRuleArgs, IValidator
 	{
 		private string message = "{validator.digits}";
 		public DigitsAttribute() {}
@@ -47,6 +50,19 @@ namespace NHibernate.Validator.Constraints
 		public int IntegerDigits { get; set; }
 
 		public int FractionalDigits { get; set; }
+
+		#region IPropertyConstraint Members
+
+		public void Apply(Property property)
+		{
+			IEnumerator ie = property.ColumnIterator.GetEnumerator();
+			ie.MoveNext();
+			var col = (Column)ie.Current;
+			col.Precision = IntegerDigits + FractionalDigits;
+			col.Scale = FractionalDigits;
+		}
+
+		#endregion
 
 		#region IRuleArgs Members
 
