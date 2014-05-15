@@ -16,8 +16,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>NHibernate.Validator.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -263,6 +262,7 @@
       <SubType>
       </SubType>
     </None>
+    <None Include="NHibernate.Validator.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
