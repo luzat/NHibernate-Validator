@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.Serialization;
-
+using System.Security;
 using NHibernate.Mapping;
 using NHibernate.Properties;
 using NHibernate.Validator.Constraints;
@@ -823,22 +823,21 @@ namespace NHibernate.Validator.Engine
 			#endregion
 		}
 
-		//[OnDeserialized]
-		//private void DeserializationCallBack(StreamingContext context)
-		//{
-		//    userInterpolator = (IMessageInterpolator)Activator.CreateInstance(userInterpolatorType);
-			
-		//    messageBundle = GetDefaultResourceManager();
-		//    defaultMessageBundle = GetDefaultResourceManager();
-		//    culture = factory.Culture;
-		//    userInterpolator = factory.UserInterpolator;
-		//    userInterpolatorType = factory.UserInterpolator.GetType();
-		//    this.childClassValidators = childClassValidators;
-		//    validatorMode = factory.ValidatorMode;
-		//}
+        //[OnDeserialized]
+        //private void DeserializationCallBack(StreamingContext context)
+        //{
+        //    userInterpolator = (IMessageInterpolator)Activator.CreateInstance(userInterpolatorType);
 
-
-		public void GetObjectData(SerializationInfo info, StreamingContext context)
+        //    messageBundle = GetDefaultResourceManager();
+        //    defaultMessageBundle = GetDefaultResourceManager();
+        //    culture = factory.Culture;
+        //    userInterpolator = factory.UserInterpolator;
+        //    userInterpolatorType = factory.UserInterpolator.GetType();
+        //    this.childClassValidators = childClassValidators;
+        //    validatorMode = factory.ValidatorMode;
+        //}
+        [SecurityCritical]
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			info.AddValue("interpolator", userInterpolatorType);
 			info.AddValue("entityType", entityType);

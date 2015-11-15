@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.Serialization;
+using System.Security;
 using NHibernate.Validator.Engine;
 using NHibernate.Validator.Exceptions;
 
@@ -196,7 +197,8 @@ namespace NHibernate.Validator.Interpolator
 			}
 		}
 
-		public void GetObjectData(SerializationInfo info, StreamingContext context)
+        [SecurityCritical]
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			info.AddValue("attributeParameters",attributeParameters );
 			info.AddValue("message",attributeMessage );
